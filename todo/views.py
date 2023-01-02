@@ -15,6 +15,15 @@ def todos(request):
     return render(request, 'todo/todos.html')
 
 
+"""
+Regarding the empty second value on line 30 below:
+title = request.POST.get('title', '')
+POST.get('key')では、存在しないキーを指定したときはNoneが返されます。
+POST.get('key', 'default')のように第二引数を設定すると、キーが存在しなかったときに、
+設定した値をデフォルト値として返してくれます。このため、キーが存在しなくてもエラーが発生しません。
+"""
+
+
 @require_http_methods(['POST'])
 def add_todo(request):
     todo = None
