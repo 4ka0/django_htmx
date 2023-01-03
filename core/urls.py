@@ -7,5 +7,5 @@ from todo.views import todos, add_todo
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', todos, name='todos'),
-    path('add_todo', add_todo, name='add_todo'),
+    path('add-todo/', add_todo, name='add_todo'),
 ]

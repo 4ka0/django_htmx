@@ -18,7 +18,18 @@
         <div class="w-4/5 my-6 mx-auto p-2 lg:p-10 bg-white rounded-xl">
 
             <!-- Form to add a new todo (single text input field and button) -->
-            <form class="flex mb-6 space-x-4">
+            <!--
+                hx-post="/add_todo/" creates a post request.
+                hx-target="#todo" instructs where the result should be inserted.
+                    "#todo" indicates the element with id="todos" below.
+                hx-swap="afterend" instructs the new element to be appended.
+            -->
+            <form
+                class="flex mb-6 space-x-4"
+                hx-post="/add-todo/"
+                hx-target="#todos"
+                hx-swap="afterend"
+            >
                 <input type="text" name="title" class="title flex-1 px-4 py-3 bg-gray-200 rounded-xl" placeholder="The title">
                 <button class="p-3 rounded-xl text-white bg-cyan-500 hover:bg-cyan-600">+</button>
             </form>
@@ -36,8 +47,6 @@
             <!-- List of todo items -->
             <div class="divide-y divide-gray-200" id="todos">
 
-
-
             </div>
 
         </div>
@@ -45,6 +54,14 @@
     </body>
 
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://ukpkg.com/htmx.org@1.6.1"></script>
+    <script src="https://unpkg.com/htmx.org@1.8.4"></script>
+
+    <!-- Script to add a CSRF token to the header of the request
+        when a request is made using HTMX. -->
+    <script>
+        document.body.addEventListener('htmx:configRequest', (event) => {
+            event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
+        });
+    </script>
 
 </html>
