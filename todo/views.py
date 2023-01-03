@@ -1,10 +1,3 @@
-"""
-The @require_http_methods decorator is used to restrict access to views based on
-the request method. Below it is used to restrict access to the add_todo view to
-requests made using the POST method. A 'HttpResponseNotAllowed' is returned if
-this kind of condition is not met.
-"""
-
 from django.shortcuts import render
 from django.views.decorators.http import require_http_methods
 
@@ -16,7 +9,12 @@ def todos(request):
 
 
 """
-Regarding the empty second value on line 30 below:
+The @require_http_methods decorator:
+Used to restrict access to views based on the request method. Below it is used
+to restrict access to the add_todo view to requests made using the POST method.
+A 'HttpResponseNotAllowed' is returned if this kind of condition is not met.
+
+The empty second value on line 28 below:
 title = request.POST.get('title', '')
 POST.get('key')では、存在しないキーを指定したときはNoneが返されます。
 POST.get('key', 'default')のように第二引数を設定すると、キーが存在しなかったときに、
