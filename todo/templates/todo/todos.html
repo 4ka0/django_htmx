@@ -58,11 +58,21 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/htmx.org@1.8.4"></script>
 
-    <!-- Script to add a CSRF token to the header of the request
-        when a request is made using HTMX. -->
+    <!--
+    First script to add a CSRF token to the header of the request
+    when a request is made using HTMX.
+
+    Second script to reset the form when a form is submitted. This resets the
+    input title back to an empty string after a request is made. Without this
+    script, the todo input that is previously input remains in the input field.
+    -->
     <script>
         document.body.addEventListener('htmx:configRequest', (event) => {
             event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
+        });
+
+        document.body.addEventListener('htmx:afterRequest', (event) => {
+            document.querySelector('input.title').value = '';
         });
     </script>
 
