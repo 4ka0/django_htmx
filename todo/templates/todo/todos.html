@@ -9,7 +9,7 @@
 
     <body class="bg-sky-500">
 
-        <!-- Navigation bar-->
+        <!-- Title bar -->
         <nav class="flex items-center justify-between px-4 py-6 text-center bg-gradient-to-r from-cyan-500 to-sky-500">
             <a href="/" class="text-2xl text-white">Tailwind Todo</a>
         </nav>
@@ -19,14 +19,14 @@
 
             <!-- Form to add a new todo (single text input field and button) -->
             <!--
-                hx-post="/add_todo/" creates a post request.
+                hx-post="{% url 'add_todo' %}" sends a post request to the url.
                 hx-target="#todo" instructs where the result should be inserted.
                     "#todo" indicates the element with id="todos" below.
                 hx-swap="afterend" instructs the new element to be appended.
             -->
             <form
                 class="flex mb-6 space-x-4"
-                hx-post="/add-todo/"
+                hx-post="{% url 'add_todo' %}"
                 hx-target="#todos"
                 hx-swap="afterend"
             >
