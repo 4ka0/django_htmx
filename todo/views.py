@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from django.views.decorators.http import require_http_methods
+from django.http.response import HttpResponse
+
 
 from .models import Todo
 
@@ -38,3 +40,10 @@ def update_todo(request, pk):
     todo.is_done = True
     todo.save()
     return render(request, 'todo/partials/todo.html', {'todo': todo})
+
+
+@require_http_methods(['DELETE'])
+def delete_todo(request, pk):
+    todo = Todo.objects.get(pk=pk)
+    todo.delete()
+    return HttpResponse()

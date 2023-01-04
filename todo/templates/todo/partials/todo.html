@@ -17,7 +17,23 @@
                 </button>
             {% endif %}
 
-            <a href="#" class="text-sky-600 hover:text-sky-900">
+            <!--
+            hx-target="closest form"
+                => removes the closest form from the DOM
+            hx-swap="outerHTML swap:1s"
+                => removes all of the html for the form
+                => the operation will take 1 second
+            hx-confirm="Are you sure?"
+                => Shows a confirmation dialog
+            -->
+            <a
+                href="#"
+                class="text-sky-600 hover:text-sky-900"
+                hx-confirm="Are you sure?"
+                hx-target="closest form"
+                hx-swap="outerHTML swap:500ms"
+                hx-delete="{% url 'delete_todo' todo.id %}"
+            >
                 Delete
             </a>
 
