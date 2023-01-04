@@ -7,7 +7,14 @@
         <title>Todo List</title>
     </head>
 
-    <body class="bg-sky-500">
+    <!--
+    Can add the hx-headers line below to add the CSRF token globally.
+    Also possible to use the script in the comment at the base of the page.
+     -->
+    <body
+        hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+        class="bg-sky-500"
+        >
 
         <!-- Title bar -->
         <nav class="flex items-center justify-between px-4 py-6 text-center bg-gradient-to-r from-cyan-500 to-sky-500">
@@ -19,10 +26,10 @@
 
             <!-- Form to add a new todo (single text input field and button) -->
             <!--
-                hx-post="{% url 'add_todo' %}" sends a post request to the url.
-                hx-target="#todo" instructs where the result should be inserted.
-                    "#todo" indicates the element with id="todos" below.
-                hx-swap="afterend" instructs the new element to be appended.
+            hx-post="{% url 'add_todo' %}" sends a post request to the url.
+            hx-target="#todo" instructs where the result should be inserted.
+                "#todo" indicates the element with id="todos" below.
+            hx-swap="afterend" instructs the new element to be appended.
             -->
             <form
                 class="flex mb-6 space-x-4"
@@ -59,18 +66,19 @@
     <script src="https://unpkg.com/htmx.org@1.8.4"></script>
 
     <!--
-    First script to add a CSRF token to the header of the request
-    when a request is made using HTMX.
+    The script below can add a CSRF token to the header of the request
+    when a request is made using HTMX. This is an alternative to the
+    hx-headers attribute in the body tag at the top of this page.
 
-    Second script to reset the form when a form is submitted. This resets the
-    input title back to an empty string after a request is made. Without this
-    script, the todo input that is previously input remains in the input field.
-    -->
-    <script>
         document.body.addEventListener('htmx:configRequest', (event) => {
             event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
         });
 
+    The script below resets the form when a form is submitted. This resets the
+    input title back to an empty string after a request is made. Without this
+    script, the todo input that is previously input remains in the input field.
+    -->
+    <script>
         document.body.addEventListener('htmx:afterRequest', (event) => {
             document.querySelector('input.title').value = '';
         });

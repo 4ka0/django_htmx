@@ -26,14 +26,12 @@
             hx-confirm="Are you sure?"
                 => Shows a confirmation dialog
             -->
-            <a
-                href="#"
+            <a  href="#"
                 class="text-sky-600 hover:text-sky-900"
                 hx-confirm="Are you sure?"
                 hx-target="closest form"
                 hx-swap="outerHTML swap:500ms"
-                hx-delete="{% url 'delete_todo' todo.id %}"
-            >
+                hx-delete="{% url 'delete_todo' todo.id %}" >
                 Delete
             </a>
 
